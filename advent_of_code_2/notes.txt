@@ -1,0 +1,63 @@
+﻿I need to create a Box from each input row.
+I then need to check if any Boxes have an Id that contains letters that appear more than once.
+I figure I'll save those in lists on the object, containing which letters appear how many times.
+For example:
+
+Box:
+string Id, List<char> TwoTimes, List<char> ThreeTimes.
+
+That way I can then fetch all boxes where those lists aren't null.
+
+I need List and Variables for:
+List<Box> BoxList = new List<Box>();
+int checksum = 0;
+
+I need functions for:
+CreatingBoxes()
+foreach (string row in inputText) {
+	Box box = new Box();
+	Box.Id = row;
+	BoxList.Add(box);
+}
+
+public void BoxIdToLists() {
+	List<char> TwoTimes = new List<char>();
+	List<char> ThreeTimes = new List<char>();
+	foreach (string s in boxId) {
+		char c = char.parse(s);
+		int matchedTimes = this.Id.Count(x => x == c)
+		if (matchedTimes == 2) {
+			TwoTimes.Add(c);
+		}
+		if (matchedTimes == 3) {
+			TwoTimes.Add(c);
+		}
+	}
+	this.TwoTimes = TwoTimes.Distinct();
+	this.ThreeTimes = ThreeTimes.Distinct();
+}
+
+int GetTwoTimesCount() {
+	int twoTimesCount = 0;
+	foreach (Box box in BoxList) {
+		if (box.TwoTimes != null) {
+			twoTimesCount++;
+		}
+	}
+	return twoTimesCount;
+}
+
+int GetThreeTimesCount() {
+	int threeTimesCount = 0;
+	foreach (Box box in BoxList) {
+		if (box.ThreeTimes != null) {
+			threeTimesCount++;
+		}
+	}
+	return threeTimesCount;
+}
+
+void CalculatingTheSumOfBothCounts(int twoTimesCount, int threeTimesCount) {
+	checksum = twoTimesCount * threeTimesCount;
+}
+
