@@ -13,11 +13,13 @@ List<Box> BoxList = new List<Box>();
 int checksum = 0;
 
 I need functions for:
-CreatingBoxes()
-foreach (string row in inputText) {
-	Box box = new Box();
-	Box.Id = row;
-	BoxList.Add(box);
+void CreateBoxes() {
+	foreach (string row in inputText) 
+	{
+		Box box = new Box();
+		Box.Id = row;
+		BoxList.Add(box);
+	}
 }
 
 public void BoxIdToLists() {
