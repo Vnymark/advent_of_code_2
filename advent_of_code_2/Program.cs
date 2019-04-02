@@ -9,22 +9,24 @@ namespace advent_of_code_2
     {
         static void Main(string[] args)
         {
+            //Input
             var inputPath = @"../../../input.txt";
             //var inputPath = @"../../../test.txt";
             List<string> inputText = File.ReadLines(inputPath).ToList();
 
+            //Add Data
             List<Box> BoxList = new List<Box>();
-            int checksum = 0;
-            string matchedString = null;
-
             CreateBoxes();
             AddCounts();
-            GetCountSum(GetTwoTimesCount(), GetThreeTimesCount());
-            Console.WriteLine(checksum);
-            MatchBoxes();
-            Console.WriteLine(matchedString);
+            
+            //Part 1
+            Console.WriteLine("Checksum: {0}", CountChecksum());
+
+            //Part 2
+            Console.WriteLine("Matched id except one (the character not matching): {0}", MatchBoxes());
             Console.ReadLine();
 
+            //Creating boxes from the input.
             void CreateBoxes()
             {
                 foreach (string row in inputText)
@@ -40,6 +42,7 @@ namespace advent_of_code_2
                 }
             }
 
+            //Adding Counts to boxes.
             void AddCounts()
             {
                 foreach(Box box in BoxList)
@@ -48,51 +51,38 @@ namespace advent_of_code_2
                 }
             }
 
-            int GetTwoTimesCount()
+            //Count the counts on all boxes and calculate the checksum.
+            int CountChecksum()
             {
                 int twoTimesCount = 0;
+                int threeTimesCount = 0;
                 foreach (Box box in BoxList)
                 {
                     if (box.TwoTimes.Count() != 0)
                     {
                         twoTimesCount++;
                     }
-                }
-                return twoTimesCount;
-            }
-
-            int GetThreeTimesCount()
-            {
-                int threeTimesCount = 0;
-                foreach (Box box in BoxList)
-                {
                     if (box.ThreeTimes.Count() != 0)
                     {
                         threeTimesCount++;
                     }
                 }
-                return threeTimesCount;
+                return twoTimesCount * threeTimesCount;
             }
 
-            void GetCountSum(int twoTimesCount, int threeTimesCount)
+            //Matches the box id's to each other and returns the string of characters from the id of the two boxes that matches in every character but one.
+            string MatchBoxes()
             {
-                checksum = twoTimesCount * threeTimesCount;
-            }
-
-            void MatchBoxes()
-            {
-                
                 foreach (Box box in BoxList)
                 {
                     List<Box> MatchedBoxes = new List<Box>(BoxList);
                     MatchedBoxes.Remove(box);
-                    bool matched = false;
-                    
+
                     foreach (Box b in MatchedBoxes)
                     {
                         int i = 0;
                         int m = 0;
-                        matchedString = null;
+                        string matchedString = null;
                         while (i < b.Id.Count())
                         {
                             if (b.Id.ElementAt(i) == box.Id.ElementAt(i))
@@ -102,21 +92,15 @@ namespace advent_of_code_2
                             }
                             if (m == (box.Id.Count() - 1))
                             {
-                                matched = true;
-                                break;
+                                return matchedString;
                             }
                             i++;
                         }
                     }
-                        
-                    if (matched == true)
-                    {
-                        break;
-                    }
                     MatchedBoxes.Add(box);
                 }
+                return null;
             }
-                
         }
     }
 }
