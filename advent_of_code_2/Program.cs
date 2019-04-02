@@ -15,11 +15,14 @@ namespace advent_of_code_2
 
             List<Box> BoxList = new List<Box>();
             int checksum = 0;
+            string matchedString = null;
 
             CreateBoxes();
             AddCounts();
             GetCountSum(GetTwoTimesCount(), GetThreeTimesCount());
             Console.WriteLine(checksum);
+            MatchBoxes();
+            Console.WriteLine(matchedString);
             Console.ReadLine();
 
             void CreateBoxes()
@@ -27,7 +30,12 @@ namespace advent_of_code_2
                 foreach (string row in inputText)
                 {
                     Box box = new Box();
-                    box.Id = row;
+                    box.Id = new List<char>();
+                    foreach (char c in row)
+                    {
+                        box.Id.Add(c);
+                    }
+                    
                     BoxList.Add(box);
                 }
             }
@@ -70,6 +78,45 @@ namespace advent_of_code_2
             {
                 checksum = twoTimesCount * threeTimesCount;
             }
+
+            void MatchBoxes()
+            {
+                
+                foreach (Box box in BoxList)
+                {
+                    List<Box> MatchedBoxes = new List<Box>(BoxList);
+                    MatchedBoxes.Remove(box);
+                    bool matched = false;
+                    
+                    foreach (Box b in MatchedBoxes)
+                    {
+                        int i = 0;
+                        int m = 0;
+                        matchedString = null;
+                        while (i < b.Id.Count())
+                        {
+                            if (b.Id.ElementAt(i) == box.Id.ElementAt(i))
+                            {
+                                m++;
+                                matchedString += b.Id.ElementAt(i);
+                            }
+                            if (m == (box.Id.Count() - 1))
+                            {
+                                matched = true;
+                                break;
+                            }
+                            i++;
+                        }
+                    }
+                        
+                    if (matched == true)
+                    {
+                        break;
+                    }
+                    MatchedBoxes.Add(box);
+                }
+            }
+                
         }
     }
 }

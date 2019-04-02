@@ -7,7 +7,7 @@ namespace advent_of_code_2
 {
     class Box
     {
-        public string Id { get; set; }
+        public List<char> Id { get; set; }
         public List<char> TwoTimes { get; set; }
         public List<char> ThreeTimes { get; set; }
 

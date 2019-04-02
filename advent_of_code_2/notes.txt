@@ -63,3 +63,30 @@ void CalculatingTheSumOfBothCounts(int twoTimesCount, int threeTimesCount) {
 	checksum = twoTimesCount * threeTimesCount;
 }
 
+//Part 2
+
+Foreach Box I might be able to loop through all the boxes, matching the Box.Id to the box.Id's of all the other boxes.
+If I change the id of the boxes from string to List<char> I can match the chars of the same index.
+For each char that exist, I add a counter.
+If that counter is the same value as the Box.Id.Lenght() -1, we have a winner.
+
+Foreach (Box box in BoxList) {
+	List<Box> MatchBoxes = new List<Box>(BoxList);
+	MatchBoxes.Remove(box);
+	Foreach (Box b in MatchBoxes)
+	{
+		int m = 0;
+		while(i < b.Id.Count())
+        {
+            if (b.Id.ElementAt(i) == box.Id.ElementAt(i))
+			{
+				m++;
+				matchedString += b.Id.ElementAt(i);
+			}	
+			if (m == (box.Id.Count()-1)){
+				Console.WriteLine(matchedString);
+			}
+		}
+	}
+}
+
